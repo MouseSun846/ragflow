@@ -2,7 +2,7 @@ import { ReactComponent as FileIcon } from '@/assets/svg/file-management.svg';
 import { ReactComponent as GraphIcon } from '@/assets/svg/graph.svg';
 import { ReactComponent as KnowledgeBaseIcon } from '@/assets/svg/knowledge-base.svg';
 import { useTranslate } from '@/hooks/common-hooks';
-import { useFetchAppConf } from '@/hooks/logic-hooks';
+// import { useFetchAppConf } from '@/hooks/logic-hooks';
 import { useNavigateWithFromState } from '@/hooks/route-hook';
 import { MessageOutlined, SearchOutlined } from '@ant-design/icons';
 import { Flex, Layout, Radio, Space, theme } from 'antd';
@@ -22,7 +22,7 @@ const RagHeader = () => {
   const navigate = useNavigateWithFromState();
   const { pathname } = useLocation();
   const { t } = useTranslate('header');
-  const appConf = useFetchAppConf();
+  // const appConf = useFetchAppConf();
   const { theme: themeRag } = useTheme();
   const tagsData = useMemo(
     () => [
@@ -71,8 +71,8 @@ const RagHeader = () => {
           onClick={handleLogoClick}
           className={styles.logoWrapper}
         >
-          <img src="/logo.svg" alt="" className={styles.appIcon} />
-          <span className={styles.appName}>{appConf.appName}</span>
+          <img src="/logo1.svg" alt="" className={styles.appIcon} />
+          {/* <span className={styles.appName}>{appConf.appName}</span> */}
         </Space>
       </a>
       <Space size={[0, 8]} wrap>

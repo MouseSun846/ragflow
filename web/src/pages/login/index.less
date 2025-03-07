@@ -11,6 +11,14 @@
     height: 100vh;
     display: flex;
     align-items: center;
+    position: relative;
+
+    .logo {
+      width: 150px;
+      position: absolute;
+      top: 20px;
+      left: 20px;
+    }
   }
 
   .leftContainer {
@@ -32,15 +40,16 @@
       bottom: 0;
       left: 0;
       right: 0;
-      background-color: rgba(24, 73, 169, 0.6);
-      background-image: url('@/assets/svg/login-background.svg');
+      // background-color: rgba(24, 73, 169, 0.6);
+      background-image: url('@/assets/svg/login-background.jpg');
       background-size: cover;
       background-blend-mode: multiply;
-      filter: blur(3px);
+      // filter: blur(3px);
       background-position: center;
       z-index: -1;
     }
     .white {
+      color: #fff;
     }
     .pink {
       color: #e9d7fe;
@@ -48,10 +57,10 @@
     .rightPanel {
       max-width: 670px;
       .loginTitle {
-        font-size: 68px;
+        font-size: 48px;
         font-style: normal;
         font-weight: 600;
-        line-height: 90px;
+        line-height: 48px;
         letter-spacing: -1.44px;
       }
       .loginDescription {

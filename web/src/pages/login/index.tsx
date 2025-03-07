@@ -1,3 +1,4 @@
+import logo1 from '@/assets/svg/logo1.svg';
 import { useLogin, useRegister } from '@/hooks/login-hooks';
 import { rsaPsw } from '@/utils';
 import { Button, Checkbox, Form, Input } from 'antd';
@@ -67,6 +68,7 @@ const Login = () => {
   return (
     <div className={styles.loginPage}>
       <div className={styles.loginLeft}>
+        <img src={logo1} alt="Logo" className={styles.logo} />
         <div className={styles.leftContainer}>
           <div className={styles.loginTitle}>
             <div>{title === 'login' ? t('login') : t('register')}</div>
