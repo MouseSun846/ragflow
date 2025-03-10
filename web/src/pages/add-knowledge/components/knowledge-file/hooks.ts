@@ -166,7 +166,8 @@ export const useHandleUploadDocument = () => {
 
         const ret = await uploadDocument(filesPart);
 
-        const files = ret?.data || [];
+        const files = Array.isArray(ret?.data) ? ret.data : [];
+
         const succesfulFilenames = files.map((file: any) => file.name);
 
         // set status to done or error on files (based on response)
