@@ -10,6 +10,29 @@
     padding-left: 10px;
     border-left: 4px solid #ccc;
   }
+  :global(.code-container),
+  :global(.react-syntax-highlighter),
+  :global(pre) {
+    white-space: pre-wrap !important;
+    word-wrap: break-word !important;
+    overflow-wrap: break-word !important;
+    overflow-x: hidden !important;
+
+    code,
+    div {
+      white-space: pre-wrap !important;
+      word-wrap: break-word !important;
+      overflow-wrap: break-word !important;
+      overflow-x: hidden !important;
+
+      span {
+        white-space: pre-wrap !important;
+        word-wrap: break-word !important;
+        overflow-wrap: break-word !important;
+        overflow-x: hidden !important;
+      }
+    }
+  }
 }
 
 .referencePopoverWrapper {
@@ -61,4 +84,14 @@
 .fileThumbnail {
   display: inline-block;
   max-width: 40px;
+}
+.code-container {
+  code {
+    span {
+      white-space: pre-wrap !important; /* Allows text to wrap */
+      word-wrap: break-word !important; /* Breaks long words */
+      overflow-wrap: break-word !important; /* Ensures long words break */
+      overflow-x: hidden !important; /* Prevents horizontal scroll */
+    }
+  }
 }

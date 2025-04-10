@@ -58,6 +58,27 @@ const MarkdownContent = ({
     setDocumentIds(Array.isArray(docAggs) ? docAggs.map((x) => x.doc_id) : []);
   }, [reference, setDocumentIds]);
 
+  useEffect(() => {
+    // 直接修改 SyntaxHighlighter 生成的元素样式
+    const codeContainers = document.querySelectorAll(
+      '.code-container pre, .react-syntax-highlighter',
+    );
+    codeContainers.forEach((container) => {
+      container.style.whiteSpace = 'pre-wrap';
+      container.style.wordWrap = 'break-word';
+      container.style.overflowWrap = 'break-word';
+      container.style.overflowX = 'hidden';
+
+      // 修改所有子元素
+      const spans = container.querySelectorAll('span');
+      spans.forEach((span) => {
+        span.style.whiteSpace = 'pre-wrap';
+        span.style.wordWrap = 'break-word';
+        span.style.overflowWrap = 'break-word';
+      });
+    });
+  }, [content]); // 当内容变化时重新应用样式
+
   const handleDocumentButtonClick = useCallback(
     (
       documentId: string,
@@ -201,14 +222,26 @@ const MarkdownContent = ({
           'custom-typography': ({ children }: { children: string }) =>
             renderReference(children),
           code(props: any) {
-            const { children, className, node, ...rest } = props;
+            const { children, className, ...rest } = props;
             const match = /language-(\w+)/.exec(className || '');
             return match ? (
-              <SyntaxHighlighter {...rest} PreTag="div" language={match[1]}>
+              <SyntaxHighlighter
+                {...rest}
+                PreTag="div"
+                language={match[1]}
+                className={`code-container ${className}`}
+                wrapLines={true}
+                wrapLongLines={true}
+                customStyle={{
+                  wordBreak: 'break-word',
+                  whiteSpace: 'pre-wrap',
+                  overflowX: 'hidden',
+                }}
+              >
                 {String(children).replace(/\n$/, '')}
               </SyntaxHighlighter>
             ) : (
-              <code {...rest} className={className}>
+              <code {...rest} className={`code-container ${className}`}>
                 {children}
               </code>
             );
