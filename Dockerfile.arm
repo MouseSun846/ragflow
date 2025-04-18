@@ -1,7 +1,7 @@
 # base stage
 FROM ubuntu:22.04 AS base
 USER root
-SHELL ["/bin/sh", "-c"]
+SHELL ["/bin/bash", "-c"]
 
 ARG NEED_MIRROR=0
 ARG LIGHTEN=0
