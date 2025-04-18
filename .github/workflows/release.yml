@@ -81,19 +81,7 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: lmshg
-          password: ${{ secrets.DOCKERHUB_TOKEN }}
-
-      # https://github.com/marketplace/actions/build-and-push-docker-images
-      - name: Build and Push to Docker Hub
-        uses: Wandalen/wretry.action@master
-        with:
-          action: docker/build-push-action@v6
-          with: |
-            context: .
-            push: true
-            tags: lmshg/ragflow:${{ env.RELEASE_TAG }}
-            file: Dockerfile
-            platforms: linux/amd64,linux/arm64   
+          password: ${{ secrets.DOCKERHUB_TOKEN }}  
       # https://github.com/marketplace/actions/build-and-push-docker-images
       - name: Build and push slim image
         uses: docker/build-push-action@v6
