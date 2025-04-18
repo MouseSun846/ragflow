@@ -85,14 +85,13 @@ jobs:
 
       # https://github.com/marketplace/actions/build-and-push-docker-images
       - name: Build and push full image
-        uses: docker/build-push-action@v6
+        uses: Wandalen/wretry.action@master
         with:
           context: .
           push: true
           tags: lmshg/ragflow:${{ env.RELEASE_TAG }}
           file: Dockerfile
           platforms: linux/amd64,linux/arm64
-
       # https://github.com/marketplace/actions/build-and-push-docker-images
       - name: Build and push slim image
         uses: docker/build-push-action@v6
