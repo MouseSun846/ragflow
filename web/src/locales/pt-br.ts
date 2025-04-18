@@ -1122,14 +1122,18 @@ export default {
       addCategory: 'Adicionar categoria',
       categoryName: 'Nome da categoria',
       nextStep: 'Próximo passo',
-      footer: {
-        profile: 'Todos os direitos reservados @ React',
-      },
-      layout: {
-        file: 'arquivo',
-        knowledge: 'conhecimento',
-        chat: 'bate-papo',
-      },
+      prompt: 'Prompt',
+      promptTip:
+        'Use o prompt do sistema para descrever a tarefa para o LLM, especificar como ele deve responder e esboçar outros requisitos diversos. O prompt do sistema é frequentemente usado em conjunto com chaves (variáveis), que servem como várias entradas de dados para o LLM. Use uma barra `/` ou o botão (x) para mostrar as chaves a serem usadas.',
+      promptMessage: 'O prompt é obrigatório',
+    },
+    footer: {
+      profile: 'Todos os direitos reservados @ React',
+    },
+    layout: {
+      file: 'arquivo',
+      knowledge: 'conhecimento',
+      chat: 'bate-papo',
     },
   },
 };
