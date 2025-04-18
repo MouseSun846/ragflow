@@ -1,6 +1,5 @@
 name: release
 
-
 on:
   workflow_dispatch:
     inputs:
@@ -8,7 +7,14 @@ on:
         description: 'Tag to create or use (e.g., v1.0.0, nightly)'
         required: true
         default: 'nightly'
-
+      platforms:
+        description: 'Docker build platforms (e.g., linux/amd64,linux/arm64)'
+        required: true
+        default: 'linux/amd64'
+      branch:
+        description: 'Branch to checkout (e.g., main, develop)'
+        required: true
+        default: 'main'
 
 # https://docs.github.com/en/actions/using-jobs/using-concurrency
 concurrency:
@@ -29,22 +35,17 @@ jobs:
           token: ${{ secrets.MY_GITHUB_TOKEN }}  # Use the secret as an environment variable
           fetch-depth: 0
           fetch-tags: true
+          ref: ${{ github.event.inputs.branch }}
 
       - name: Prepare release body
         run: |
-          if [[ $GITHUB_EVENT_NAME == 'create' ]]; then
-            RELEASE_TAG=${GITHUB_REF#refs/tags/}
-            if [[ $RELEASE_TAG == 'nightly' ]]; then
-              PRERELEASE=true
-            else
-              PRERELEASE=false
-            fi
-            echo "Workflow triggered by create tag: $RELEASE_TAG"
-          else
-            RELEASE_TAG=nightly
+          RELEASE_TAG=${{ github.event.inputs.tag }}
+          if [[ $RELEASE_TAG == 'nightly' ]]; then
             PRERELEASE=true
-            echo "Workflow triggered by schedule"
+          else
+            PRERELEASE=false
           fi
+          echo "Workflow triggered by workflow_dispatch with tag: $RELEASE_TAG"
           echo "RELEASE_TAG=$RELEASE_TAG" >> $GITHUB_ENV
           echo "PRERELEASE=$PRERELEASE" >> $GITHUB_ENV
           RELEASE_DATETIME=$(date --rfc-3339=seconds)
@@ -81,7 +82,8 @@ jobs:
         uses: docker/login-action@v3
         with:
           username: lmshg
-          password: ${{ secrets.DOCKERHUB_TOKEN }}  
+          password: ${{ secrets.DOCKERHUB_TOKEN }}
+
       # https://github.com/marketplace/actions/build-and-push-docker-images
       - name: Build and push slim image
         uses: docker/build-push-action@v6
@@ -91,4 +93,4 @@ jobs:
           tags: lmshg/ragflow:${{ env.RELEASE_TAG }}-slim
           file: Dockerfile
           build-args: LIGHTEN=1
-          platforms: linux/amd64
+          platforms: ${{ github.event.inputs.platforms }}    
