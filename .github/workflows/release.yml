@@ -85,16 +85,16 @@ jobs:
       - name: Set up Docker Buildx
         uses: docker/setup-buildx-action@v3
       # https://github.com/marketplace/actions/build-and-push-docker-images
-      # - name: Build and push slim image linux/amd64
-      #   uses: docker/build-push-action@v6
-      #   with:
-      #     context: .
-      #     push: true
-      #     tags: lmshg/ragflow:${{ env.RELEASE_TAG }}-slim
-      #     file: Dockerfile
-      #     build-args: |
-      #       LIGHTEN=1
-      #     platforms: linux/amd64
+      - name: Build and push slim image linux/amd64
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: lmshg/ragflow:${{ env.RELEASE_TAG }}-slim
+          file: Dockerfile
+          build-args: |
+            LIGHTEN=1
+          platforms: linux/amd64
 
       - name: Build and push slim image linux/arm64
         uses: docker/build-push-action@v6
