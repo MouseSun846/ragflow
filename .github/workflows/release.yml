@@ -92,5 +92,7 @@ jobs:
           push: true
           tags: lmshg/ragflow:${{ env.RELEASE_TAG }}-slim
           file: Dockerfile
-          build-args: LIGHTEN=1
+          build-args: |
+            LIGHTEN=1
+            DEPS_IMAGE=$(if echo "${{ github.event.inputs.platforms }}" | grep -q "arm"; then echo "lmshg/ragflow_deps:latest"; else echo "infiniflow/ragflow_deps:latest"; fi)
           platforms: ${{ github.event.inputs.platforms }}    
