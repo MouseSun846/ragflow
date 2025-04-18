@@ -1,7 +1,7 @@
 # base stage
 FROM ubuntu:22.04 AS base
 USER root
-SHELL ["/bin/bash", "-c"]
+SHELL ["/bin/sh", "-c"]
 
 ARG NEED_MIRROR=0
 ARG LIGHTEN=0
@@ -76,7 +76,7 @@ ENV PATH=/root/.local/bin:$PATH
 
 # nodejs 12.22 on Ubuntu 22.04 is too old
 RUN --mount=type=cache,id=ragflow_apt,target=/var/cache/apt,sharing=locked \
-    curl -fsSL https://deb.nodesource.com/setup_20.x | bash - && \
+    curl -fsSL https://deb.nodesource.com/setup_20.x | sh - && \
     apt purge -y nodejs npm cargo && \
     apt autoremove -y && \
     apt update && \
@@ -91,7 +91,7 @@ RUN apt update && apt install -y curl build-essential \
          echo "Using TUNA mirrors for Rustup."; \
        fi; \
     # Force curl to use HTTP/1.1
-    curl --proto '=https' --tlsv1.2 --http1.1 -sSf https://sh.rustup.rs | bash -s -- -y --profile minimal \
+    curl --proto '=https' --tlsv1.2 --http1.1 -sSf https://sh.rustup.rs | sh -s -- -y --profile minimal \
     && echo 'export PATH="/root/.cargo/bin:${PATH}"' >> /root/.bashrc
 
 ENV PATH="/root/.cargo/bin:${PATH}"
